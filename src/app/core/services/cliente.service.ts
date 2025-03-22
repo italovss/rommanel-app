@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cliente } from '../models/cliente.model';
+import { ApiResponse } from '../models/api-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class ClienteService {
@@ -9,23 +10,23 @@ export class ClienteService {
 
   constructor(private http: HttpClient) {}
 
-  listar(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.api);
+  listar(): Observable<ApiResponse<Cliente[]>> {
+    return this.http.get<ApiResponse<Cliente[]>>(this.api);
   }
 
-  obterPorId(id: string): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.api}/${id}`);
+  obterPorId(id: string): Observable<ApiResponse<Cliente>> {
+    return this.http.get<ApiResponse<Cliente>>(`${this.api}/${id}`);
   }
 
-  criar(cliente: Cliente): Observable<any> {
-    return this.http.post(this.api, cliente);
+  criar(cliente: Cliente): Observable<ApiResponse<any>> {
+    return this.http.post<ApiResponse<any>>(this.api, cliente);
   }
 
-  atualizar(id: string, cliente: Cliente): Observable<any> {
-    return this.http.put(`${this.api}/${id}`, cliente);
+  atualizar(id: string, cliente: Cliente): Observable<ApiResponse<any>> {
+    return this.http.put<ApiResponse<any>>(`${this.api}/${id}`, cliente);
   }
 
-  remover(id: string): Observable<any> {
-    return this.http.delete(`${this.api}/${id}`);
+  remover(id: string): Observable<ApiResponse<any>> {
+    return this.http.delete<ApiResponse<any>>(`${this.api}/${id}`);
   }
 }

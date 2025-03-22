@@ -34,17 +34,17 @@ export class FormularioComponent implements OnInit {
 
   form = this.fb.group({
     nome: ['', Validators.required],
-    cpf_cnpj: ['', Validators.required],
+    cpF_CNPJ: ['', Validators.required],
     dataNascimento: ['', Validators.required],
-    telefone: [''],
+    telefone: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     endereco: this.fb.group({
-      cep: [''],
-      logradouro: [''],
-      numero: [''],
-      bairro: [''],
-      cidade: [''],
-      estado: [''],
+      cep: ['', Validators.required],
+      logradouro: ['', Validators.required],
+      numero: ['', Validators.required],
+      bairro: ['', Validators.required],
+      cidade: ['', Validators.required],
+      estado: ['', Validators.required],
     }),
   });
 
@@ -53,24 +53,33 @@ export class FormularioComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
-      this.clienteService.obterPorId(this.id).subscribe(cliente => {
-        this.form.patchValue(cliente);
+      this.clienteService.obterPorId(this.id).subscribe(res => {
+        if (res.success && res.data) {
+          this.form.patchValue(res.data);
+        } else {
+          alert(res.errors?.join('\n') || 'Erro ao carregar cliente');
+          this.router.navigate(['/clientes']);
+        }
       });
     }
   }
 
   salvar() {
     if (this.form.invalid) return;
-
+  
     const cliente = this.form.value as Cliente;
-
+  
     const obs = this.id
       ? this.clienteService.atualizar(this.id, cliente)
       : this.clienteService.criar(cliente);
-
-    obs.subscribe(() => {
-      alert('Cliente salvo com sucesso!');
-      this.router.navigate(['/clientes']);
+  
+    obs.subscribe(res => {
+      if (res.success) {
+        alert(res.message || 'Cliente salvo com sucesso!');
+        this.router.navigate(['/clientes']);
+      } else {
+        alert(res.errors?.join('\n') || 'Erro ao salvar cliente');
+      }
     });
   }
 }

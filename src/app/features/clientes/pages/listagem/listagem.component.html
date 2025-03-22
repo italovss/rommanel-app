@@ -4,44 +4,39 @@
       <h2 class="form-title">Clientes</h2>
       <button mat-raised-button color="primary" routerLink="/clientes/novo">Novo Cliente</button>
     </div>
+    <mat-table [dataSource]="clientes" class="mat-elevation-z2" *ngIf="clientes.length">
 
-    <mat-card class="table-container">
-      <mat-card-content>
-        <mat-table [dataSource]="clientes" class="mat-elevation-z2" *ngIf="clientes.length">
-          
-          <ng-container matColumnDef="nome">
-            <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-            <mat-cell *matCellDef="let cliente"> {{ cliente.nome }} </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="nome">
+        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+        <mat-cell *matCellDef="let cliente"> {{ cliente.nome }} </mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="cpf_cnpj">
-            <mat-header-cell *matHeaderCellDef> CPF/CNPJ </mat-header-cell>
-            <mat-cell *matCellDef="let cliente"> {{ cliente.cpf_cnpj }} </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="cpF_CNPJ">
+        <mat-header-cell *matHeaderCellDef> CPF/CNPJ </mat-header-cell>
+        <mat-cell *matCellDef="let cliente"> {{ cliente.cpF_CNPJ }} </mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-            <mat-cell *matCellDef="let cliente"> {{ cliente.email }} </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+        <mat-cell *matCellDef="let cliente"> {{ cliente.email }} </mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="acoes">
-            <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
-            <mat-cell *matCellDef="let cliente">
-              <button mat-icon-button color="primary" (click)="editar(cliente.id!)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="remover(cliente.id!)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="acoes">
+        <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+        <mat-cell *matCellDef="let cliente">
+          <button mat-icon-button color="primary" (click)="editar(cliente.id!)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="remover(cliente.id!)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
 
-        <p *ngIf="!clientes.length" class="sem-registros">Nenhum cliente encontrado.</p>
-      </mat-card-content>
-    </mat-card>
+    <p *ngIf="!clientes.length" class="sem-registros">Nenhum cliente encontrado.</p>
   </div>
 </section>

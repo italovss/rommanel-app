@@ -3,7 +3,7 @@ import { Endereco } from "./endereco.model";
 export interface Cliente {
     id?: string;
     nome: string;
-    cpf_cnpj: string;
+    cpF_CNPJ: string;
     dataNascimento: string;
     telefone: string;
     email: string;

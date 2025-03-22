@@ -10,6 +10,7 @@ import { ClienteService } from '../../../../core/services/cliente.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ApiResponse } from '../../../../core/models/api-response.model';
 
 @Component({
   standalone: true,
@@ -30,10 +31,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class ListagemComponent {
   clientes: Cliente[] = [];
-  displayedColumns = ['nome', 'cpf_cnpj', 'email', 'acoes'];
+  displayedColumns = ['nome', 'cpF_CNPJ', 'email', 'acoes'];
 
   constructor(private clienteService: ClienteService, private router: Router) {
-    this.clienteService.listar().subscribe(data => this.clientes = data);
+    this.carregarClientes();
+  }
+
+  carregarClientes() {
+    this.clienteService.listar().subscribe((res: ApiResponse<Cliente[]>) => {
+      if (res.success && res.data) {
+        this.clientes = res.data;
+      } else {
+        alert(res.errors?.join('\n') || 'Erro ao carregar clientes');
+      }
+    });
   }
 
   novo() {
@@ -46,8 +57,12 @@ export class ListagemComponent {
 
   remover(id: string) {
     if (confirm('Deseja realmente remover este cliente?')) {
-      this.clienteService.remover(id).subscribe(() => {
-        this.clientes = this.clientes.filter(c => c.id !== id);
+      this.clienteService.remover(id).subscribe(res => {
+        if (res.success) {
+          this.clientes = this.clientes.filter(c => c.id !== id);
+        } else {
+          alert(res.errors?.join('\n') || 'Erro ao remover cliente');
+        }
       });
     }
   }

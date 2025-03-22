@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   standalone: true,
   selector: 'app-listagem',
   templateUrl: './listagem.component.html',
+  styleUrl: './listagem.component.scss',
   imports: [
     CommonModule,
     RouterModule,
@@ -29,7 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class ListagemComponent {
   clientes: Cliente[] = [];
-  displayedColumns = ['nome', 'cpf_CNPJ', 'email', 'acoes'];
+  displayedColumns = ['nome', 'cpf_cnpj', 'email', 'acoes'];
 
   constructor(private clienteService: ClienteService, private router: Router) {
     this.clienteService.listar().subscribe(data => this.clientes = data);

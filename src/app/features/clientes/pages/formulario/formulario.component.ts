@@ -14,6 +14,7 @@ import { MatDividerModule } from '@angular/material/divider';
   standalone: true,
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
+  styleUrl: './formulario.component.scss',
   imports: [
     CommonModule,
     ReactiveFormsModule,

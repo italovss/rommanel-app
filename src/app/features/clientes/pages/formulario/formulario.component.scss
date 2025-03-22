@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .form-wrapper {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .grid-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  .form-card {
+    padding: 1rem;
+  }
+  
+  .action-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .section-title {
+    margin: 1rem 0 0.5rem;
+    font-weight: 600;
+  }
+  

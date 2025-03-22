@@ -43,13 +43,15 @@ app-root {
   border-radius: 8px;
 }
 
-.example-form {
+.form {
   min-width: 150px;
-  max-width: 600px;
+  max-width: 800px;
   width: 100%;
 }
 
-.example-full-width {
+.full-width {
+  min-width: 150px;
+  max-width: 800px;
   width: 100%;
 }
 
